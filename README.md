@@ -1,6 +1,8 @@
 # Object Detection Toolkit
 Repository for processing targets in object detection. Usage for custom datasets. 
 
+`TODO: Draw ground truths, K-means`
+
 ## Requirements
 ```
 pip install -U -r requirements.txt
