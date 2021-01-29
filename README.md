@@ -111,4 +111,4 @@ Analysis of dataset:
 ```
 python analysis.py -p COCO -f json -c 32 96 128 256 -figsize 16
 ```
-<img src="/img/pascal2007.png" alt="drawing" width="550"/>
+<img src="/img/pascal2007.jpeg" alt="drawing" width="550"/>
