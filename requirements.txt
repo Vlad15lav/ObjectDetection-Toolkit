@@ -1,0 +1,6 @@
+# pip install -U -r requirements.txt
+numpy
+matplotlib
+seaborn
+pandas
+xml-python
