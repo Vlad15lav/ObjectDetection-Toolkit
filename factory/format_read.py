@@ -9,7 +9,7 @@ from pycocotools.coco import COCO
 def read_xml(path, sample='train'):
     imgs_path, bboxs, labels = [], [], []
     path_ann = os.path.join(path, "annotations")
-    path_img = os.path.join(path, "JPEGImages")
+    path_img = os.path.join(path, "JPEGImages-{}".format(sample))
     paths = [os.path.join(path_ann, l.strip().split(None, 1)[0] + '.xml')
                  for l in open(os.path.join(path, 'ImageSets', 'Main', sample + '.txt')).readlines()]
     
