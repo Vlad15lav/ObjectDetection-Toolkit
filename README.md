@@ -8,7 +8,7 @@ Repository for processing targets in object detection. Usage for custom datasets
 pip install -U -r requirements.txt
 ```
 
-## Analysis targets
+## Analysis Targets
 Support for the following bounding box formats:
 ### Format XML - Pascal VOC
 ```txt
@@ -19,6 +19,12 @@ datasets/
         -*.jpg
     -annotations
         -*.xml
+    -ImageSets/
+        -Layout
+	-Main
+	    -{train_set_name}.txt
+	    -{val_set_name}.txt
+	-Segmentation
 ```
 
 ```xml
@@ -50,7 +56,7 @@ datasets/
 ```
 Analysis of dataset:
 ```
-python analysis.py -p VOC2007 -f xml -c 32 96 128 256 -figsize 16 -xyxy
+python analysis.py -p VOC2007 -s train -f xml -c 32 96 128 256 -figsize 16 -xyxy
 ```
 
 ### Format Json - COCO
@@ -60,7 +66,7 @@ datasets/
         -*.jpg
     -val_set_name/
         -*.jpg
-    -annotations
+    -annotations/
         -instances_{train_set_name}.json
         -instances_{val_set_name}.json
 ```
@@ -111,7 +117,13 @@ datasets/
 
 Analysis of dataset:
 ```
-python analysis.py -p COCO -f json -c 32 96 128 256 -figsize 16
+python analysis.py -p COCO -s train2014 -f json -c 32 96 128 256 -figsize 16
 ```
 #### Pascal VOC 2007 Example
-<img src="/img/pascal2007.jpg" alt="drawing" width="550"/>
+<img src="/img/pascal2007.jpg" alt="drawing" width="600"/>
+
+## Drawing ground truths
+```
+python drawbox.py -p VOC2007 -s train -f xml -xyxy
+```
+<img src="/img/pascalgt.png" alt="drawing" width="600"/>
