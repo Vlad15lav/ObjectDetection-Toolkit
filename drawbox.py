@@ -38,4 +38,4 @@ if __name__ == '__main__':
         raise ValueError('Incorrect selected sample')
 
     # Draw selected bouding boxes
-    draw_batch(imgs[left:right], bbox[left:right], label[left:right])
+    draw_batch(imgs[left:right], bbox[left:right], label[left:right], xyxy=opt.xyxy)
