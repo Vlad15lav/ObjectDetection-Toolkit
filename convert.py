@@ -3,6 +3,8 @@ import os
 import yaml
 import numpy as np
 
+from factory.format_write import write_xml, write_json
+
 class Params:
     def __init__(self, project_file):
         self.params = yaml.safe_load(open(project_file).read())
