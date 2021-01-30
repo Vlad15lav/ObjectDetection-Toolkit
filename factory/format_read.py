@@ -6,11 +6,12 @@ import json
 from pycocotools.coco import COCO
 
 # PASCAL VOC annotation
-def read_xml(path):
+def read_xml(path, sample='train'):
     imgs_path, bboxs, labels = [], [], []
     path_ann = os.path.join(path, "annotations")
     path_img = os.path.join(path, "JPEGImages")
-    paths = [p.replace("\\", '/') for p in glob.glob("{}/*.xml".format(path_ann))]
+    paths = [os.path.join(path_ann, l.strip().split(None, 1)[0] + '.xml')
+                 for l in open(os.path.join(path, 'ImageSets', 'Main', sample + '.txt')).readlines()]
     
     for xml_file in paths:
         tree = ET.parse(xml_file)
