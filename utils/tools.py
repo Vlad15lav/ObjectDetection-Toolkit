@@ -26,15 +26,15 @@ def get_whr(bboxs, labels, xyxy=True, categorys=[32, 96, 256]):
     
     return label_array, width, height, ratio
 
-def analysis_target(label_array, width, height, ratio, categorys=[32, 96, 128, 256]):
+def analysis_target(label_array, width, height, ratio, category=[32, 96, 128, 256]):
     label_un = np.sort(np.unique(label_array))
     
     targets = {key:[] for key in label_un}
     rations = {key:[] for key in label_un}
     
-    category = {"<{}*{}".format(key, key):0 for key in categorys}
-    category['large'] = 0
-    keys_cat = list(category)
+    categories = {"<{}*{}".format(key, key):0 for key in category}
+    categories['large'] = 0
+    keys_cat = list(categories)
     
     for i, gt_cls in enumerate(label_array):
         targets[gt_cls].append(width[i])
@@ -42,22 +42,21 @@ def analysis_target(label_array, width, height, ratio, categorys=[32, 96, 128, 2
         rations[gt_cls].append(ratio[i])
         
         area = width[i] * height[i]
-        # Find category box
-        for i_key, id_c in enumerate(categorys):
+        for i_key, id_c in enumerate(category):
             if area < id_c * id_c:
-                category[keys_cat[i_key]] += 1
+                categories[keys_cat[i_key]] += 1
                 break
         
-    category['large'] = len(label_array) - sum(category.values())
+    categories['large'] = len(label_array) - sum(categories.values())
     
     # Create DataFrame and Boxplots, Bar by classes
     df_wh = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in targets.items() ]))
     df_ratio = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in rations.items() ]))
-    df_category = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in category.items() ]))
+    df_categories = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in categories.items() ]))
     
     f, ax = plt.subplots(2, 2, figsize=(16, 16))
     sns.boxplot(data=df_wh, orient="h", showfliers=False, ax=ax[0, 0]).set_title('Bounding box sizable by classes')
     sns.boxplot(data=df_ratio, orient="h", showfliers=False, ax=ax[0, 1]).set_title('Bounding box ratio by classes')
     sns.barplot(x=[len(v)/2 for k,v in targets.items()], y=df_wh.keys(), orient="h", ax=ax[1, 0]).set_title('Number by classes')
-    sns.barplot(data=df_category, orient="h", ax=ax[1, 1]).set_title('Bounding box categories')
+    sns.barplot(data=df_categories, orient="h", ax=ax[1, 1]).set_title('Bounding box categories')
     plt.show()
