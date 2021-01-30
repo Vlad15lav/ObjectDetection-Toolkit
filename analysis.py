@@ -28,6 +28,6 @@ if __name__ == '__main__':
     	raise ValueError('format not ready')
     else:
     	raise ValueError('Undefined format')
-
-	label_array, width, height, ratio = get_whr(bbox, label, xyxy=opt.xyxy)
-	analysis_target(label_array, width, height, ratio, categorys=opt.categorys, opt.figsize)
+	
+    label_array, width, height, ratio = get_whr(bbox, label, xyxy=opt.xyxy)
+    analysis_target(label_array, width, height, ratio, categorys=opt.categorys, opt.figsize)
