@@ -1,12 +1,16 @@
 # Object Detection Toolkit
 Repository for processing targets in object detection. Usage for custom datasets. 
 
-`TODO: Draw ground truths, K-means`
+`TODO: K-means`
 
 ## Requirements
 ```
 pip install -U -r requirements.txt
 ```
+If you are using a custom dataset, pay attention to the format of the bounding boxes.</br>
+For Pascal VOC is *[x left top, y left top, x bottom right, y bottom right]* `-xyxy`
+and for COCO it is *[x left top, y left top, width, height]*, this information is below.</br>
+More details - ` python <script>.py --help `
 
 ## Analysis Targets
 Support for the following bounding box formats:
@@ -127,3 +131,9 @@ python analysis.py -p COCO -s train2014 -f json -c 32 96 128 256 -figsize 16
 python drawbox.py -p VOC2007 -s train -f xml -xyxy
 ```
 <img src="/img/pascalgt.png" alt="drawing" width="600"/>
+
+## Convert formats
+Convert Pascal VOC format to COCO Json format
+```
+python convert.py -p VOC2007 -s train -f xml -wformat json -config config/pascal2007 -xyxy
+```
