@@ -57,6 +57,7 @@ def read_json(path, sample='train'):
     
     return imgs_path, bboxs, labels
 
+# txt format
 def read_txt(path, sample='train'):
     imgs_path, bboxs, labels = [], [], []
     path_img = os.path.join(path, 'images', sample)
