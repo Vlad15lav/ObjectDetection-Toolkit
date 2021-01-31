@@ -1,20 +1,24 @@
 # Object Detection Toolkit
 Repository for processing targets in object detection. Usage for custom datasets. 
 
-`TODO: K-means`
+Options:
+- Analysis targets
+- Drawing grount truths
+- Convert formats
+- Clustering anchors
 
 ## Requirements
 ```
 pip install -U -r requirements.txt
 ```
 If you are using a custom dataset, pay attention to the format of the bounding boxes.</br>
-For Pascal VOC is *[x left top, y left top, x bottom right, y bottom right]* `-xyxy` and </br>
-for COCO it is *[x left top, y left top, width, height]*, this information is below.</br>
+For Pascal VOC is **[x left top, y left top, x bottom right, y bottom right]** `-xyxy` and </br>
+for COCO it is **[x left top, y left top, width, height]**, this information is below.</br>
 More details - ` python <script>.py --help `
 
-## Analysis Targets
+# Analysis Targets
 Support for the following bounding box formats:
-### Format XML - Pascal VOC
+## Format XML - Pascal VOC
 ```txt
 datasets/
     -JPEGImages-{train_set_name}/
@@ -63,7 +67,7 @@ Analysis of dataset:
 python analysis.py -p VOC2007 -s train -f xml -c 32 96 128 256 -figsize 16 -xyxy
 ```
 
-### Format Json - COCO
+## Format Json - COCO
 ```txt
 datasets/
     -train_set_name/
@@ -126,14 +130,20 @@ python analysis.py -p COCO -s train2014 -f json -c 32 96 128 256 -figsize 16
 #### Pascal VOC 2007 Example
 <img src="/img/pascal2007.jpg" alt="drawing" width="600"/>
 
-## Drawing ground truths
+# Drawing ground truths
 ```
 python drawbox.py -p VOC2007 -s train -f xml -xyxy -batch 0 4
 ```
 <img src="/img/pascalgt.png" alt="drawing" width="600"/>
 
-## Convert formats
+# Convert formats
 Convert Pascal VOC format to COCO Json format
 ```
 python convert.py -p VOC2007 -s train -f xml -wformat json -config config/pascal2007 -xyxy
+```
+
+# Anchor box clustering
+Clustering of anchor boxes to configure optimal detector parameters.
+```
+python clustering.py -c 3 -p VOC2007 -s train -f xml -xyxy
 ```
