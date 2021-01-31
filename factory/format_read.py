@@ -56,3 +56,27 @@ def read_json(path, sample='train'):
         labels.append(label_list)
     
     return imgs_path, bboxs, labels
+
+def read_txt(path, sample='train'):
+    imgs_path, bboxs, labels = [], [], []
+    path_img = os.path.join(path, 'images', sample)
+    path_label = os.path.join(path, 'labels', sample)
+    
+    txt_files = os.listdir(path_label)
+    img_files = os.listdir(path_img)
+    
+    for i in range(len(txt_files)):
+        imgs_path.append(os.path.join(path_img, img_files[i]))
+        
+        with open(os.path.join(path_label, txt_files[i]), 'r') as f:
+            targets = [x.split() for x in f.read().splitlines()]
+        
+        bbox_list, label_list = [], []
+        for idx, target in enumerate(targets):
+            bbox_list.append(map(float, target[1:]))
+            label_list.append(target[0])
+
+        bboxs.append(bbox_list)
+        labels.append(label_list)
+    
+    return imgs_path, bboxs, labels
