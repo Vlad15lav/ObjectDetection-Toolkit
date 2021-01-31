@@ -8,8 +8,8 @@ Repository for processing targets in object detection. Usage for custom datasets
 pip install -U -r requirements.txt
 ```
 If you are using a custom dataset, pay attention to the format of the bounding boxes.</br>
-For Pascal VOC is *[x left top, y left top, x bottom right, y bottom right]* `-xyxy`
-and for COCO it is *[x left top, y left top, width, height]*, this information is below.</br>
+For Pascal VOC is *[x left top, y left top, x bottom right, y bottom right]* `-xyxy` and </br>
+for COCO it is *[x left top, y left top, width, height]*, this information is below.</br>
 More details - ` python <script>.py --help `
 
 ## Analysis Targets
@@ -128,7 +128,7 @@ python analysis.py -p COCO -s train2014 -f json -c 32 96 128 256 -figsize 16
 
 ## Drawing ground truths
 ```
-python drawbox.py -p VOC2007 -s train -f xml -xyxy
+python drawbox.py -p VOC2007 -s train -f xml -xyxy -batch 0 4
 ```
 <img src="/img/pascalgt.png" alt="drawing" width="600"/>
 
