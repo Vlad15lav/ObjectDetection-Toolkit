@@ -60,3 +60,11 @@ def analysis_target(label_array, width, height, ratio, category=[32, 96, 128, 25
     sns.barplot(x=[len(v)/2 for k,v in targets.items()], y=df_wh.keys(), orient="h", ax=ax[1, 0]).set_title('Number of boxes by classes')
     sns.barplot(data=df_categories, orient="h", ax=ax[1, 1]).set_title('Bounding box categories')
     plt.show()
+
+def decomposit_boxes(bboxs, anchor_base_scale = 4, anchor_stride = 8):
+    return_scale, return_ratio = [], []
+    base_factor = anchor_base_scale * anchor_stride
+    for height, width in bboxs:
+        return_scale.append(height * 1.0 / base_factor)
+        return_ratio.append((1, width * 1.0 / height))
+    return return_scale, return_ratio
