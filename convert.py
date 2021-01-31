@@ -3,7 +3,8 @@ import os
 import yaml
 import numpy as np
 
-from factory.format_write import write_xml, write_json
+from factory.format_read import read_xml, read_json, read_txt
+from factory.format_write import write_xml, write_json, write_txt
 
 class Params:
     def __init__(self, project_file):
@@ -20,7 +21,7 @@ def get_args():
     parser.add_argument('--wformat', type=str, default='xml', help='write format annotation: xml, json, txt')
     parser.add_argument('--config', type=str, help='yml file with targets')
     parser.add_argument('--xyxy', help='xyxy - format PASCAL VOC', action="store_true")
-    #parser.add_argument('--img_size', type=int, default=1, help='scale bounding boxes for normalized')
+    parser.add_argument('--scale', type=int, default=1, help='scale targets')
 
     args = parser.parse_args()
     return args
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     elif opt.format == 'json':
     	imgs, bbox, label = read_json(opt.path, opt.sample)
     elif opt.format == 'txt':
-    	raise ValueError('format not ready')
+    	imgs, bbox, label = read_txt(opt.path, opt.sample)
     else:
     	raise ValueError('Undefined format')
 
@@ -43,6 +44,6 @@ if __name__ == '__main__':
     elif opt.wformat == 'json':
     	write_json(imgs, bbox, label, xyxy=opt.xyxy, mask=params.targets)
     elif opt.wformat == 'txt':
-    	raise ValueError('format not ready')
+    	write_txt(imgs, bbox, label, scale=opt.scale, xyxy=opt.xyxy, mask=params.targets)
     else:
     	raise ValueError('Undefined format')
