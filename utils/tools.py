@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-def get_whr(bboxs, labels, xyxy=True):
+def get_whr(bboxs, labels, xyxy=True, scale=1):
     label_array, height, width = np.zeros(0), np.zeros(0), np.zeros(0)
     ratio, bbox_array = np.zeros(0), np.zeros(0)
     
@@ -17,8 +17,8 @@ def get_whr(bboxs, labels, xyxy=True):
             w, h = bbox[:, 2], bbox[:, 3]
                 
         label_array = np.append(label_array, labels[i])
-        width = np.append(width, w)
-        height = np.append(height, h)
+        width = np.append(width, w * scale)
+        height = np.append(height, h * scale)
         ratio = np.append(ratio, h / w)
     
     return label_array, width, height, ratio
