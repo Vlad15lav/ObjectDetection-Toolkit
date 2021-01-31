@@ -74,7 +74,7 @@ def read_txt(path, sample='train'):
         
         bbox_list, label_list = [], []
         for idx, target in enumerate(targets):
-            bbox_list.append(map(float, target[1:]))
+            bbox_list.append(list(map(float, a[1:])))
             label_list.append(target[0])
 
         bboxs.append(bbox_list)
