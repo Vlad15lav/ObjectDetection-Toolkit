@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from factory.format_read import read_xml, read_json
+from factory.format_read import read_xml, read_json, read_txt
 from utils.drawing import draw_sample, draw_batch
 
 def get_args():
@@ -11,7 +11,7 @@ def get_args():
     parser.add_argument('-f', '--format', type=str, default='xml', help='format annotation: xml, json, txt')
     parser.add_argument('--xyxy', help='xyxy - format PASCAL VOC', action="store_true")
     parser.add_argument('--batch', type=int, nargs="+", default=[0, 0], help='select batch interval')
-    parser.add_argument('--img_size', type=int, default=1, help='scale bounding boxes for normalized')
+    parser.add_argument('--scale', type=int, default=1, help='scale targets')
 
     args = parser.parse_args()
     return args
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     elif opt.format == 'json':
     	imgs, bbox, label = read_json(opt.path, opt.sample)
     elif opt.format == 'txt':
-    	raise ValueError('format not ready')
+    	imgs, bbox, label = read_txt(opt.path, opt.sample)
     else:
     	raise ValueError('Undefined format')
     
@@ -38,4 +38,4 @@ if __name__ == '__main__':
         raise ValueError('Incorrect selected sample')
 
     # Draw selected bouding boxes
-    draw_batch(imgs[left:right], bbox[left:right], label[left:right], xyxy=opt.xyxy)
+    draw_batch(imgs[left:right], bbox[left:right], label[left:right], scale=opt.scale, xyxy=opt.xyxy)
