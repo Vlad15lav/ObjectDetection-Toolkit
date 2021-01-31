@@ -10,7 +10,7 @@ def get_args():
     parser.add_argument('-s', '--sample', type=str, default='train', help='name sample train/val')
     parser.add_argument('-f', '--format', type=str, default='xml', help='format annotation: xml, json, txt')
     parser.add_argument('--xyxy', help='xyxy - format PASCAL VOC', action="store_true")
-    parser.add_argument('--sample', type=int, nargs="+", default=[0, 10], help='select sample interval')
+    parser.add_argument('--batch', type=int, nargs="+", default=[0, 0], help='select batch interval')
     parser.add_argument('--img_size', type=int, default=1, help='scale bounding boxes for normalized')
 
     args = parser.parse_args()
@@ -19,9 +19,9 @@ def get_args():
 if __name__ == '__main__':
     opt = get_args()
 
-    # Check arg sample
-    left, right = opt.sample
-    if len(opt.sample) != 2 or left > right or left < 0:
+    # Check arg batch
+    left, right = opt.batch
+    if len(opt.batch) != 2 or left > right or left < 0:
         raise ValueError('Incorrect selected sample')
 
     # Read dataset
