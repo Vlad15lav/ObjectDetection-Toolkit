@@ -85,3 +85,20 @@ def write_json(imgs_path, bboxs, labels, xyxy=True, mask=None):
     
     with open('annotation/instances_.json', 'w') as f:
         json.dump(ann_json, f)
+
+def write_txt(imgs_path, bboxs, labels, scale=1, sample='train', mask=None):
+    labels_path = 'labels/{}'.format(sample)
+    if not os.path.exists(labels_path):
+        os.makedirs(labels_path)
+    
+    txt_names = [imgs_path[i].split('\\')[-1].split('.')[0] for i in range(len(imgs_path))]
+    
+    for i_img in range(len(imgs_path)):
+        out_txt = ''
+        for i, (bbox, label) in enumerate(zip(bboxs[i_img], labels[i_img])):
+            box = np.array(bbox) * scale
+            
+            out_txt += "{} {} {} {} {}\n".format(label, *box.tolist())
+            
+        with open("{}/{}.txt".format(labels_path, txt_names[i_img]), "w") as outfile:
+            outfile.write(out_txt)
